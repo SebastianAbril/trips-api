@@ -1,0 +1,23 @@
+name: build and test
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+      
+      - name: npm install
+        run: npm install
+
+      - name: unit testing
+        run: npm run test

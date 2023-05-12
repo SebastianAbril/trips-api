@@ -15,7 +15,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-      
+
       - name: npm install
         run: npm install
 
@@ -56,4 +56,4 @@ jobs:
           script: |
             docker stop trips-api
             docker rm trips-api
-            docker run -d --pull always --restart always --name trips-api --net trip-net -p 3000:3000 -e DATABASE_HOST=trips-database -e DATABASE_PORT=5432 -e DATABASE_USERNAME=trips_user -e DATABASE_PASSWORD=123456 -e DATABASE_NAME=trips_db sebastianabril6/trips-api:latest
+            docker run -d --pull always --restart always --name trips-api --net trip-net -p 3000:3000 -e DATABASE_HOST=${{ secrets.DATABASE_HOST }} -e DATABASE_PORT=${{ secrets.DATABASE_PORT }} -e DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }} -e DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }} -e DATABASE_NAME=${{ secrets.DATABASE_NAME }}

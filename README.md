@@ -1,7 +1,11 @@
+# trips-api
 
-# How to Run?
+## CI/CD
+This application has a CI/CD process through GitHub Actions. For every push made to the master branch, the code is compiled, tests are executed, a Docker image is created, published to Docker Hub, and the EC2 container is restarted. You can access the deployed API documentation at the following URL: http:m."
 
-## Instructions to run the project locally (Dev environment):
+## How to Run?
+
+### Instructions to run the project locally (Dev environment):
 1. Start the database by running the following Docker command:
 ```
 docker run --name trips-database -p 5432:5432 -e POSTGRES_DB=trips_db -e POSTGRES_USER=trips_user -e POSTGRES_PASSWORD=123456 -d postgres:11
@@ -32,7 +36,7 @@ npm run start:dev
 http://localhost:3000/api
 ```
 
-## Instructions to run the project with Docker:
+### Instructions to run the project with Docker:
 1. Create a network
 ```
 docker network create trip-net
@@ -52,20 +56,3 @@ docker run -d --pull --name trips-api --net trip-net -p 3000:3000 -e DATABASE_HO
 ```
 http://localhost:3000/api
 
-
-
-docker build -t sebastianabril6/trips-api:latest .
-docker login
-docker push sebastianabril6/trips-api:latest
-
-AWS_EC2_HOST
-AWS_EC2_KEY
-AWS_EC2_USERNAME
-DOCKERHUB_TOKEN
-DOCKERHUB_USERNAME
-
-
-docker run --restart always --net trip-net --name trips-database -p 5432:5432 -e POSTGRES_DB=trips_db -e POSTGRES_USER=trips_user -e POSTGRES_PASSWORD=123456 -d postgres:11
-
-
-docker run -d --pull always --restart always --name trips-api --net trip-net -p 3000:3000 -e DATABASE_HOST=trips-database -e DATABASE_PORT=5432 -e DATABASE_USERNAME=trips_user -e DATABASE_PASSWORD=123456 -e DATABASE_NAME=trips_db sebastianabril6/trips-api:latest

@@ -5,15 +5,12 @@ import { Rider } from '../entity/rider.entity';
 import { Ride } from '../entity/ride.entity';
 import { RideController } from '../controller/ride.controller';
 import { RideService } from '../service/ride.service';
+import { databaseProperties } from './database';
+
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: '127.0.0.1',
-      port: 5432,
-      username: 'trips_user',
-      password: '123456',
-      database: 'trips_db',
+      ...(databaseProperties as any),
       entities: [Driver, Rider, Ride],
     }),
     TypeOrmModule.forFeature([Driver, Rider, Ride]),

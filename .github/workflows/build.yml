@@ -54,6 +54,5 @@ jobs:
           username: ${{ secrets.AWS_EC2_USERNAME }}
           key: ${{ secrets.AWS_EC2_KEY }}
           script: |
-            docker stop trips-api
-            docker rm trips-api
+            docker rm -f trips-api || true
             docker run -d --pull always --restart always --name trips-api --net trip-net -p 3000:3000 -e DATABASE_HOST=${{ secrets.DATABASE_HOST }} -e DATABASE_PORT=${{ secrets.DATABASE_PORT }} -e DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }} -e DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }} -e DATABASE_NAME=${{ secrets.DATABASE_NAME }}

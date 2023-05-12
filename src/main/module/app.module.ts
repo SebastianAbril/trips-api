@@ -3,8 +3,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Driver } from '../entity/driver.entity';
 import { Rider } from '../entity/rider.entity';
 import { Ride } from '../entity/ride.entity';
-import { RideController } from '../controller/ride.controller';
-import { RideService } from '../service/ride.service';
+import { RiderController } from '../controller/rider.controller';
+import { RiderService } from '../service/rider.service';
+import { DriverController } from '../controller/driver.controller';
+import { DriverService } from '../service/driver.service';
 import { databaseProperties } from './database';
 
 @Module({
@@ -15,7 +17,7 @@ import { databaseProperties } from './database';
     }),
     TypeOrmModule.forFeature([Driver, Rider, Ride]),
   ],
-  controllers: [RideController],
-  providers: [RideService],
+  controllers: [RiderController, DriverController],
+  providers: [RiderService, DriverService],
 })
 export class AppModule {}

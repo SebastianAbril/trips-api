@@ -1,9 +1,9 @@
 import { Driver } from '../entity/driver.entity';
 import { Rider } from '../entity/rider.entity';
-import { RideService } from './ride.service';
+import { RiderService } from './rider.service';
 
-describe('RideService', () => {
-  let rideService: RideService;
+describe('RiderService', () => {
+  let riderService: RiderService;
   const riderRepository = {
     findOneBy: jest.fn(),
   };
@@ -15,7 +15,7 @@ describe('RideService', () => {
   };
 
   beforeEach(() => {
-    rideService = new RideService(
+    riderService = new RiderService(
       rideRepository as any,
       riderRepository as any,
       driverRepository as any,
@@ -35,7 +35,7 @@ describe('RideService', () => {
       riderRepository.findOneBy.mockResolvedValueOnce(null);
 
       await expect(async () => {
-        await rideService.requestRide(
+        await riderService.requestRide(
           riderId,
           initialLatitude,
           initialLongitude,
@@ -53,7 +53,7 @@ describe('RideService', () => {
       driverRepository.query.mockResolvedValueOnce(null);
 
       await expect(async () => {
-        await rideService.requestRide(
+        await riderService.requestRide(
           riderId,
           initialLatitude,
           initialLongitude,
@@ -73,7 +73,11 @@ describe('RideService', () => {
       riderRepository.findOneBy.mockResolvedValueOnce(rider);
       driverRepository.query.mockResolvedValueOnce([driver]);
 
-      await rideService.requestRide(riderId, initialLatitude, initialLongitude);
+      await riderService.requestRide(
+        riderId,
+        initialLatitude,
+        initialLongitude,
+      );
 
       expect(rideRepository.save).toHaveBeenCalledTimes(1);
       expect(rideRepository.save).toHaveBeenCalledWith(

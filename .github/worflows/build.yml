@@ -21,3 +21,39 @@ jobs:
 
       - name: unit testing
         run: npm run test
+
+  publish:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Build Docker image
+        run: |
+          docker build -t sebastianabril6/trips-api:latest .
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Push Docker image
+        run: |
+          docker push sebastianabril6/trips-api:latest
+
+  deploy:
+    needs: publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: deploy to AWS EC2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.AWS_EC2_HOST }}
+          username: ${{ secrets.AWS_EC2_USERNAME }}
+          key: ${{ secrets.AWS_EC2_KEY }}
+          script: |
+            docker stop trips-api
+            docker rm trips-api
+            docker run -d --pull always --restart always --name trips-api --net trip-net -p 3000:3000 -e DATABASE_HOST=trips-database -e DATABASE_PORT=5432 -e DATABASE_USERNAME=trips_user -e DATABASE_PASSWORD=123456 -e DATABASE_NAME=trips_db sebastianabril6/trips-api:latest

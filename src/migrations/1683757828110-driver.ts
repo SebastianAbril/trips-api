@@ -33,7 +33,7 @@ export class Driver1683757828110 implements MigrationInterface {
     public async down(queryRunner: QueryRunner): Promise<void> {
 
         await queryRunner.query(
-            `DROP INDEX IF EXISTS email_index`
+            `DROP INDEX IF EXISTS idx_driver_email`
         );
 
         await queryRunner.query(

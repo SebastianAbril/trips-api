@@ -3,7 +3,6 @@ import {
   Column,
   PrimaryGeneratedColumn,
   ManyToOne,
-  CreateDateColumn,
   JoinColumn,
 } from 'typeorm';
 import { Rider } from './rider.entity';
@@ -14,11 +13,11 @@ export class Ride {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Rider, { eager: false })
+  @ManyToOne(() => Rider, { eager: true })
   @JoinColumn({ name: 'rider_id' })
   rider: Rider;
 
-  @ManyToOne(() => Driver, { eager: false })
+  @ManyToOne(() => Driver, { eager: true })
   @JoinColumn({ name: 'driver_id' })
   driver: Driver;
 
@@ -31,15 +30,25 @@ export class Ride {
   @Column({ name: 'total_price' })
   totalPrice: number;
 
-  @Column({ name: 'from_latitude', type: 'decimal', precision: 10, scale: 4 })
-  fromLatitude: number;
+  @Column({
+    name: 'initial_latitude',
+    type: 'decimal',
+    precision: 10,
+    scale: 4,
+  })
+  initialLatitude: number;
 
-  @Column({ name: 'from_longitude', type: 'decimal', precision: 10, scale: 4 })
-  fromLongitude: number;
+  @Column({
+    name: 'initial_longitude',
+    type: 'decimal',
+    precision: 10,
+    scale: 4,
+  })
+  initialLongitude: number;
 
-  @Column({ name: 'to_latitude', type: 'decimal', precision: 10, scale: 4 })
-  toLatitude: number;
+  @Column({ name: 'final_latitude', type: 'decimal', precision: 10, scale: 4 })
+  finalLatitude: number;
 
-  @Column({ name: 'to_longitude', type: 'decimal', precision: 10, scale: 4 })
-  toLongitude: number;
+  @Column({ name: 'final_longitude', type: 'decimal', precision: 10, scale: 4 })
+  finalLongitude: number;
 }

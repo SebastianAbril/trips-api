@@ -3,9 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Driver } from '../entity/driver.entity';
 import { Rider } from '../entity/rider.entity';
 import { Ride } from '../entity/ride.entity';
-import { DriverController } from '../controller/driver.controller';
 import { RideController } from '../controller/ride.controller';
-import { DriverService } from '../service/driver.service';
 import { RideService } from '../service/ride.service';
 @Module({
   imports: [
@@ -20,7 +18,7 @@ import { RideService } from '../service/ride.service';
     }),
     TypeOrmModule.forFeature([Driver, Rider, Ride]),
   ],
-  controllers: [DriverController, RideController],
-  providers: [DriverService, RideService],
+  controllers: [RideController],
+  providers: [RideService],
 })
 export class AppModule {}

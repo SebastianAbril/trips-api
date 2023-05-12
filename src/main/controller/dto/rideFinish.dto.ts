@@ -1,13 +1,13 @@
 import { IsNotEmpty, IsNumber } from 'class-validator';
 
-export class RideRequest {
+export class RideFinish {
   @IsNotEmpty()
   @IsNumber()
-  riderId: number;
+  rideId: number;
   @IsNotEmpty()
   @IsNumber()
-  initialLatitude: number;
+  finalLatitude: number;
   @IsNotEmpty()
   @IsNumber()
-  initialLongitude: number;
+  finalLongitude: number;
 }

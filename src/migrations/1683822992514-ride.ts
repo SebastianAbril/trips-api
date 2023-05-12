@@ -11,18 +11,18 @@ export class Ride1683822992514 implements MigrationInterface {
                 "created_at" TIMESTAMP,
                 "finalized_at" TIMESTAMP,
                 "total_price" DECIMAL,
-                "from_latitude" DECIMAL,
-                "from_longitude" DECIMAL,
-                "to_latitude" DECIMAL,
-                "to_longitude" DECIMAL
+                "initial_latitude" DECIMAL,
+                "initial_longitude" DECIMAL,
+                "final_latitude" DECIMAL,
+                "final_longitude" DECIMAL
               );`
         );
 
         await queryRunner.query(
-            `CREATE INDEX ride_index_created_at ON ride (created_at);
-            CREATE INDEX ride_index_finalized_at ON ride (finalized_at);
-            CREATE INDEX ride_index_rider_id ON ride (rider_id);
-            CREATE INDEX ride_index_driver_id ON ride (driver_id);`
+            `CREATE INDEX idx_ride_created_at ON ride (created_at);
+            CREATE INDEX idx_ride_finalized_at ON ride (finalized_at);
+            CREATE INDEX idx_ride_rider_id ON ride (rider_id);
+            CREATE INDEX idx_ride_driver_id ON ride (driver_id);`
         );
     }
 
@@ -32,10 +32,10 @@ export class Ride1683822992514 implements MigrationInterface {
         );
 
         await queryRunner.query(
-            `DROP INDEX IF EXISTS ride_index_created_at;
-            DROP INDEX IF EXISTS ride_index_finalized_at;
-            DROP INDEX IF EXISTS ride_index_rider_id;
-            DROP INDEX IF EXISTS ride_index_driver_id;`
+            `DROP INDEX IF EXISTS idx_ride_created_at;
+            DROP INDEX IF EXISTS idx_ride_finalized_at;
+            DROP INDEX IF EXISTS idx_ride_rider_id;
+            DROP INDEX IF EXISTS idx_ride_driver_id;`
         );
     }
 

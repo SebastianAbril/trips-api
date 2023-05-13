@@ -16,7 +16,7 @@ describe('RiderService', () => {
     save: jest.fn(),
   };
 
-  const paymentSource = {
+  const paymentService = {
     getAcceptanceToken: jest.fn(),
     createPaymentSource: jest.fn(),
   };
@@ -26,7 +26,7 @@ describe('RiderService', () => {
       rideRepository as any,
       riderRepository as any,
       driverRepository as any,
-      paymentSource as any,
+      paymentService as any,
     );
   });
 
@@ -121,15 +121,15 @@ describe('RiderService', () => {
       rider.email = 'jhon@gmail.com';
 
       riderRepository.findOneBy.mockResolvedValueOnce(rider);
-      paymentSource.getAcceptanceToken.mockResolvedValueOnce(acceptanceToken);
-      paymentSource.createPaymentSource.mockResolvedValueOnce(paymentSourceId);
+      paymentService.getAcceptanceToken.mockResolvedValueOnce(acceptanceToken);
+      paymentService.createPaymentSource.mockResolvedValueOnce(paymentSourceId);
 
       await riderService.createPaymentSource(riderId, tokenizedCard);
 
-      expect(paymentSource.getAcceptanceToken).toHaveBeenCalledTimes(1);
+      expect(paymentService.getAcceptanceToken).toHaveBeenCalledTimes(1);
 
-      expect(paymentSource.createPaymentSource).toHaveBeenCalledTimes(1);
-      expect(paymentSource.createPaymentSource).toHaveBeenCalledWith(
+      expect(paymentService.createPaymentSource).toHaveBeenCalledTimes(1);
+      expect(paymentService.createPaymentSource).toHaveBeenCalledWith(
         tokenizedCard,
         rider.email,
         acceptanceToken,

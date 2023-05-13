@@ -18,7 +18,7 @@ import { HttpModule } from '@nestjs/axios';
       entities: [Driver, Rider, Ride],
     }),
     TypeOrmModule.forFeature([Driver, Rider, Ride]),
-    HttpModule
+    HttpModule,
   ],
   controllers: [RiderController, DriverController],
   providers: [RiderService, DriverService, PaymentService],

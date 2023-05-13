@@ -13,3 +13,10 @@ export type PaymentSourceResponse = {
     id: number;
   };
 };
+
+export type CreateTransactionResponse = {
+  data: {
+    id: string;
+    status: string;
+  };
+};

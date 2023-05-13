@@ -51,4 +51,13 @@ export class Ride {
 
   @Column({ name: 'final_longitude', type: 'decimal', precision: 10, scale: 4 })
   finalLongitude: number;
+
+  @Column()
+  reference: string;
+
+  @Column({ name: 'payment_id' })
+  paymentId: string;
+
+  @Column({ name: 'payment_status' })
+  paymentStatus: string;
 }

@@ -1,7 +1,11 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { firstValueFrom } from 'rxjs';
-import { AcceptanceTokenResponse, PaymentSourceResponse } from './payment.dto';
+import {
+  AcceptanceTokenResponse,
+  CreateTransactionResponse,
+  PaymentSourceResponse,
+} from './payment.dto';
 
 @Injectable()
 export class PaymentService {
@@ -43,5 +47,36 @@ export class PaymentService {
     );
 
     return response.data.data.id;
+  }
+
+  async createTransaction(
+    amount,
+    riderEmail,
+    reference,
+    paymentSourceId,
+  ): Promise<CreateTransactionResponse> {
+    const data = {
+      amount_in_cents: amount * 100, // Monto current centavos
+      currency: 'COP', // Moneda
+      customer_email: riderEmail, // Email del usuario
+      payment_method: {
+        installments: 1, // Número de cuotas si la fuente de pago representa una tarjeta de lo contrario el campo payment_method puede ser ignorado.
+      },
+      reference: reference, // Referencia única de pago
+      payment_source_id: paymentSourceId, // ID de la fuente de pago
+    };
+
+    const url = `${process.env.PAYMENT_BASE_URL}/v1/transactions`;
+
+    const response = await firstValueFrom(
+      this.httpService.post<CreateTransactionResponse>(url, data, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${process.env.PAYMENT_PRIVATE_KEY}`,
+        },
+      }),
+    );
+
+    return response.data;
   }
 }

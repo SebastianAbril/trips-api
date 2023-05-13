@@ -13,4 +13,7 @@ export class Rider {
 
   @Column()
   email: string;
+
+  @Column({ name: 'payment_source_id' })
+  paymentSourceId: number;
 }

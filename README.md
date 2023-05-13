@@ -1,7 +1,7 @@
 # trips-api
 
 ## CI/CD
-This application has a CI/CD process through GitHub Actions. For every push made to the master branch, the code is compiled, tests are executed, a Docker image is created, published to Docker Hub, and the EC2 container is restarted. You can access the deployed API documentation at the following URL: http://ec2-3-128-30-79.us-east-2.compute.amazonaws.com:3000/api
+This application has a CI/CD process through GitHub Actions. For every push made to the master branch, the code is compiled, tests are executed, a Docker image is created, published to Docker Hub, and a container that is in EC2 is restarted. You can access the deployed API documentation at the following URL: http://ec2-3-128-30-79.us-east-2.compute.amazonaws.com:3000/api
 
 ## How to Run?
 
@@ -51,8 +51,9 @@ docker run --net trip-net --name trips-database -p 5432:5432 -e POSTGRES_DB=trip
 docker run -d --pull --name trips-api --net trip-net -p 3000:3000 -e DATABASE_HOST=trips-database -e DATABASE_PORT=5432 -e DATABASE_USERNAME=trips_user -e DATABASE_PASSWORD=123456 -e DATABASE_NAME=trips_db sebastianabril6/trips-api:latest
 ```
 3. It's important to note that both containers are being created in the same network so that they can communicate with each other.
-```
+
 4. You can access the API documentation in your browser at the following URL:
+
 ```
 http://localhost:3000/api
-
+```

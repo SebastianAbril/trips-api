@@ -55,4 +55,9 @@ jobs:
           key: ${{ secrets.AWS_EC2_KEY }}
           script: |
             docker rm -f trips-api || true
-            docker run -d --pull always --restart always --name trips-api --net trip-net -p 3000:3000 -e DATABASE_HOST=${{ secrets.DATABASE_HOST }} -e DATABASE_PORT=${{ secrets.DATABASE_PORT }} -e DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }} -e DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }} -e DATABASE_NAME=${{ secrets.DATABASE_NAME }}
+            docker run -d --pull always --restart always --name trips-api --net trip-net -p 3000:3000 -e DATABASE_HOST=${{ secrets.DATABASE_HOST }} -e DATABASE_PORT=${{ secrets.DATABASE_PORT }} -e DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }} -e DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }} -e DATABASE_NAME=${{ secrets.DATABASE_NAME }} -e PAYMENT_BASE_URL=${{ secrets.PAYMENT_BASE_URL }} -e PAYMENT_PUBLIC_KEY=${{ secrets.PAYMENT_PUBLIC_KEY }} -e PAYMENT_PRIVATE_KEY=${{ secrets.PAYMENT_PRIVATE_KEY }} sebastianabril6/trips-api:latest
+
+
+
+
+

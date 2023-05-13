@@ -3,7 +3,7 @@ import { IsNotEmpty, IsNumber } from 'class-validator';
 
 export class PaymentSourceRequest {
   @ApiProperty({
-    description: 'The rider id',
+    description: 'The rider id.',
     example: 1,
   })
   @IsNotEmpty()
@@ -11,7 +11,7 @@ export class PaymentSourceRequest {
   riderId: number;
 
   @ApiProperty({
-    description: 'The tokenized Card of the rider',
+    description: 'The tokenized Card of the rider.',
     example: 'tok_test_2345_dfn45i457h45994h9233ljnfo',
   })
   @IsNotEmpty()

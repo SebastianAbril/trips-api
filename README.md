@@ -1,5 +1,12 @@
 # trips-api
 
+Trips-api is an exceptional project developed with NestJS, TypeScript,PostgreSQL, Docker, GitHubActions and AWS. As a user (Rider), you can request a Ride and the API will contact the nearest driver to assign the Ride,then you must register a payment method beforehand, and finally the API will perform the necessary steps to finalize the ride and conduct a transaction. The following libraries are utilized:
+
+- class-validator: performs server-side validations.
+- uuid: generates unique references for the transactions..
+- rxjs: facilitates communication with the external API.
+- typeorm: provides data persistence and migrations.
+
 ## CI/CD
 This application has a CI/CD process through GitHub Actions. For every push made to the master branch, the code is compiled, test are executed, a Docker image is created, published to Docker Hub, and a container that is in EC2 is restarted. You can access the deployed API documentation at the following URL: http://ec2-3-128-30-79.us-east-2.compute.amazonaws.com:3000/api 
 
@@ -48,6 +55,11 @@ Trips-api uses a 3 layer arquitecture with Controllers, Services a Repositories:
 The database Entity Relation Diagram:
 
 ![Entitiy Relation Diagram](./docs/ERD.png)
+
+## Postman collections
+
+
+
 
 
 

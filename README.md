@@ -35,23 +35,21 @@ npm run start:dev
 ```
 http://localhost:3000/api
 ```
-
-
-
-
-
 ## Architecture
+
+Trips-api uses a 3 layer arquitecture with Controllers, Services a Repositories:
+
+![3 layer Architecture](./docs/ARCHITECTURE.png)
+
+
 
 ## Database
 
+The database Entity Relation Diagram:
+
 ![Entitiy Relation Diagram](./docs/ERD.png)
-## Controller
 
-### DTOS
 
-## Service
-
-## Repository
 
 
 

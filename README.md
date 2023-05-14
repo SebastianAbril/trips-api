@@ -1,7 +1,7 @@
 # trips-api
 
 ## CI/CD
-This application has a CI/CD process through GitHub Actions. For every push made to the master branch, the code is compiled, test are executed, a Docker image is created, published to Docker Hub, and a container that is in EC2 is restarted. You can access the deployed API documentation at the following URL:  
+This application has a CI/CD process through GitHub Actions. For every push made to the master branch, the code is compiled, test are executed, a Docker image is created, published to Docker Hub, and a container that is in EC2 is restarted. You can access the deployed API documentation at the following URL: http://ec2-3-128-30-79.us-east-2.compute.amazonaws.com:3000/api 
 
 ## How to Run?
 
@@ -35,6 +35,35 @@ npm run start:dev
 ```
 http://localhost:3000/api
 ```
+
+
+
+
+
+## Architecture
+
+## Database
+
+![Entitiy Relation Diagram](./docs/ERD.png)
+## Controller
+
+### DTOS
+
+## Service
+
+## Repository
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### Instructions to run the project with Docker:
 1. Create a network

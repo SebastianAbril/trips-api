@@ -1,9 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumber } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class PaymentSourceRequest {
   @ApiProperty({
-    description: 'The rider id.',
+    description: "The rider's id",
     example: 1,
   })
   @IsNotEmpty()
@@ -15,5 +15,6 @@ export class PaymentSourceRequest {
     example: 'tok_test_2345_dfn45i457h45994h9233ljnfo',
   })
   @IsNotEmpty()
+  @IsString()
   tokenizedCard: string;
 }

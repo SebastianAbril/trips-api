@@ -1,6 +1,6 @@
 # trips-api
 
-Trips-api is an exceptional project developed with NestJS, TypeScript, PostgreSQL, Docker, GitHubActions and AWS. As a Rider you can request a Ride everywhere, and the API will contact the nearest driver to assist you in your trip.In order to use the service you must register a payment method beforehand (Credit Card for example), and finally the API will perform the necessary steps to finalize the ride and make a transaction. You can access the deployed API documentation at the following URL: http://ec2-3-128-30-79.us-east-2.compute.amazonaws.com:3000/api 
+trips-api is an exceptional project developed with NestJS, TypeScript, PostgreSQL, Docker, GitHubActions and AWS. As a Rider you can request a Ride everywhere, and the API will contact the nearest driver to assist you in your trip.In order to use the service you must register a payment method beforehand (Credit Card for example), and finally the API will perform the necessary steps to finalize the ride and make a transaction. You can access the deployed API documentation at the following URL: http://ec2-3-128-30-79.us-east-2.compute.amazonaws.com:3000/api 
 
 ## How to Run?
 
@@ -43,34 +43,41 @@ Trips-api has a 3-layer architecture: Controllers, Services, and Repositories. E
 
 ## Database
 
-The database used to store and manage the data is PostgreSQL, in order to create and execute the migrations TypeORM was implemented. The Entity Relation Diagram illustrates the various entities in our system and how they are related to each other:
+The database used to store and manage the data is PostgreSQL, in order to create and execute the migrations TypeORM was implemented. The Entity Relation Diagram illustrates the various entities in the system and how they are related to each other:
 
 ![Entitiy Relation Diagram](./docs/ERD.png)
 
-## TESTING
+## Testing
 
-Unit testing was made in all the services of the project using Jest, they are in service folder.
+Unit testing was made using Jest in DriverService and RiderService of the project , they are in service folder.
 
 ## Libraries
 
 The following libraries are utilized in the project:
 
-- typeorm: provides data persistence and migrations.
+- TypeORM: provides data persistence and migrations.
 - class-validator: performs server-side validations.
 - uuid: generates unique references for the transactions.
 - HttpModule (axios): facilitates communication with the external API.
+- Jest: to do testing.
 
 
 ## Docker
+
+La imagen de Docker esta realizada de la siguiente manera:
+Se intala Docker.
+
+En un contenedor tenemos la Base de datos de Postgres en el puerto 5432, en otro contenedor tenemos la trip-api.
+
+
 
 ## CI/CD
 This application has a CI/CD process through GitHub Actions. For every push made to the master branch, the code is compiled, test are executed, a Docker image is created, published to Docker Hub, and a container that is in EC2 is restarted. You can access the deployed API documentation at the following URL:
 
 Cómo esta construida la EC2
 
-tenemos instalado Docker, en un contenedor la DB y en otro contenedor la trip-api
+
 
 # AWS - EC2
-
-
-*EXPLICACION DE COMO ESTA DESPLEGADO EN AWS CON DOCKER.
+Usando el servicio de AWS EC2 instalamos Docker en el sistema.
+Dentro de Docker creamos dos contenedores: uno para alojar la imagen de trips-api y otro para la imagen de la base de datos de postgresql. 

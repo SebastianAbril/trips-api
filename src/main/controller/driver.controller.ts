@@ -17,7 +17,15 @@ export class DriverController {
   @HttpCode(200)
   @ApiResponse({
     status: 200,
-    description: 'The ride has finished sucessfully.',
+    description: 'The Ride has finished sucessfully',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Not Found. The ride was not found',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad Request.Check the Request parameters',
   })
   @Post('/finish')
   async rideFinish(@Body() request: RideFinish): Promise<Ride> {

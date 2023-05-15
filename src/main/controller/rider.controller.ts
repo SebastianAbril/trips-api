@@ -21,6 +21,14 @@ export class RiderController {
     status: 201,
     description: 'The Ride has been requested and created sucessfully.',
   })
+  @ApiResponse({
+    status: 404,
+    description: 'Not Found. The rider was not found',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad Request.Check the Request parameters',
+  })
   @Post('/request')
   async rideRequest(@Body() request: RideRequest): Promise<Ride> {
     return this.riderService.requestRide(
@@ -37,6 +45,15 @@ export class RiderController {
   @ApiResponse({
     status: 201,
     description: 'The Payment Source was created sucessfully',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Not Found. The rider id does not exist',
+  })
+  @ApiResponse({
+    status: 400,
+    description:
+      'Bad Request.Check the Request parameters or the Token is invalid',
   })
   @Post('/create-payment-source')
   async createPaymentSource(

@@ -61,23 +61,9 @@ The following libraries are utilized in the project:
 - HttpModule (axios): facilitates communication with the external API.
 - Jest: to do testing.
 
-
-## Docker
-
-La imagen de Docker esta realizada de la siguiente manera:
-Se intala Docker.
-
-En un contenedor tenemos la Base de datos de Postgres en el puerto 5432, en otro contenedor tenemos la trip-api.
-
-
-
 ## CI/CD
-This application has a CI/CD process through GitHub Actions. For every push made to the master branch, the code is compiled, test are executed, a Docker image is created, published to Docker Hub, and a container that is in EC2 is restarted. You can access the deployed API documentation at the following URL:
-
-Cómo esta construida la EC2
-
+The Trips-api project has a robust CI/CD pipeline that is powered by Github Actions. Whenever changes are pushed to the master branch, Github Actions compiles the code, runs tests, and creates a Docker image of the application. This Docker image is then published to Docker Hub, where it can be easily accessed and deployed. Finally, the EC2 instance hosting the application is automatically updated with the latest version of the Docker container. This process ensures that the application is always up-to-date and running the latest version of the code, without any manual intervention.
 
 
 # AWS - EC2
-Usando el servicio de AWS EC2 instalamos Docker en el sistema.
-Dentro de Docker creamos dos contenedores: uno para alojar la imagen de trips-api y otro para la imagen de la base de datos de postgresql. 
+To host trips-api application and  PostgreSQL database Amazon Web Services' EC2 service was used. In EC2, Docker was installed on the system, which allow us to create containers for our application and database. Using Docker, we were able to package trips-api application and its dependencies into a single container, and similarly, PostgreSQL database was packaged into another container. This approach allowed us to easily deploy our application and database on the EC2 instance and ensure consistency between development and production environments. 

@@ -21,7 +21,7 @@ export class RideRequest {
 
   @ApiProperty({
     description:
-      "The initial latitude of the Rider, which is the position's longitude where the Rider request the ride",
+      "The initial longitude of the Rider, which is the position's longitude where the Rider request the ride",
     example: 5214.3217,
   })
   @IsNotEmpty()

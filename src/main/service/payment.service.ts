@@ -1,5 +1,5 @@
 import { HttpService } from '@nestjs/axios';
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { firstValueFrom } from 'rxjs';
 import {
   AcceptanceTokenResponse,
@@ -15,13 +15,20 @@ export class PaymentService {
   }
 
   async getAcceptanceToken(): Promise<string> {
-    const url = `${process.env.PAYMENT_BASE_URL}/v1/merchants/${process.env.PAYMENT_PUBLIC_KEY}`;
+    try {
+      const url = `${process.env.PAYMENT_BASE_URL}/v1/merchants/${process.env.PAYMENT_PUBLIC_KEY}`;
 
-    const response = await firstValueFrom(
-      this.httpService.get<AcceptanceTokenResponse>(url),
-    );
+      const response = await firstValueFrom(
+        this.httpService.get<AcceptanceTokenResponse>(url),
+      );
 
-    return response.data.data.presigned_acceptance.acceptance_token;
+      return response.data.data.presigned_acceptance.acceptance_token;
+    } catch (error: any) {
+      if (error.response) {
+        throw new BadRequestException(error.response.data);
+      }
+      throw new BadRequestException(error.message);
+    }
   }
 
   async createPaymentSource(
@@ -29,24 +36,31 @@ export class PaymentService {
     riderEmail: string,
     acceptanceToken: string,
   ): Promise<number> {
-    const data = {
-      type: 'CARD',
-      token: tokenizedCard,
-      customer_email: riderEmail,
-      acceptance_token: acceptanceToken,
-    };
+    try {
+      const data = {
+        type: 'CARD',
+        token: tokenizedCard,
+        customer_email: riderEmail,
+        acceptance_token: acceptanceToken,
+      };
 
-    const url = `${process.env.PAYMENT_BASE_URL}/v1/payment_sources`;
+      const url = `${process.env.PAYMENT_BASE_URL}/v1/payment_sources`;
 
-    const response = await firstValueFrom(
-      this.httpService.post<PaymentSourceResponse>(url, data, {
-        headers: {
-          Authorization: `Bearer ${process.env.PAYMENT_PRIVATE_KEY}`,
-        },
-      }),
-    );
+      const response = await firstValueFrom(
+        this.httpService.post<PaymentSourceResponse>(url, data, {
+          headers: {
+            Authorization: `Bearer ${process.env.PAYMENT_PRIVATE_KEY}`,
+          },
+        }),
+      );
 
-    return response.data.data.id;
+      return response.data.data.id;
+    } catch (error: any) {
+      if (error.response) {
+        throw new BadRequestException(error.response.data);
+      }
+      throw new BadRequestException(error.message);
+    }
   }
 
   async createTransaction(
@@ -55,28 +69,35 @@ export class PaymentService {
     reference,
     paymentSourceId,
   ): Promise<CreateTransactionResponse> {
-    const data = {
-      amount_in_cents: amount * 100, // Monto current centavos
-      currency: 'COP', // Moneda
-      customer_email: riderEmail, // Email del usuario
-      payment_method: {
-        installments: 1, // Número de cuotas si la fuente de pago representa una tarjeta de lo contrario el campo payment_method puede ser ignorado.
-      },
-      reference: reference, // Referencia única de pago
-      payment_source_id: paymentSourceId, // ID de la fuente de pago
-    };
-
-    const url = `${process.env.PAYMENT_BASE_URL}/v1/transactions`;
-
-    const response = await firstValueFrom(
-      this.httpService.post<CreateTransactionResponse>(url, data, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${process.env.PAYMENT_PRIVATE_KEY}`,
+    try {
+      const data = {
+        amount_in_cents: amount * 100, // Monto current centavos
+        currency: 'COP', // Moneda
+        customer_email: riderEmail, // Email del usuario
+        payment_method: {
+          installments: 1, // Número de cuotas si la fuente de pago representa una tarjeta de lo contrario el campo payment_method puede ser ignorado.
         },
-      }),
-    );
+        reference: reference, // Referencia única de pago
+        payment_source_id: paymentSourceId, // ID de la fuente de pago
+      };
 
-    return response.data;
+      const url = `${process.env.PAYMENT_BASE_URL}/v1/transactions`;
+
+      const response = await firstValueFrom(
+        this.httpService.post<CreateTransactionResponse>(url, data, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${process.env.PAYMENT_PRIVATE_KEY}`,
+          },
+        }),
+      );
+
+      return response.data;
+    } catch (error: any) {
+      if (error.response) {
+        throw new BadRequestException(error.response.data);
+      }
+      throw new BadRequestException(error.message);
+    }
   }
 }

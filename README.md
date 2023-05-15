@@ -1,14 +1,6 @@
 # trips-api
 
-Trips-api is an exceptional project developed with NestJS, TypeScript,PostgreSQL, Docker, GitHubActions and AWS. As a user (Rider), you can request a Ride and the API will contact the nearest driver to assign the Ride,then you must register a payment method beforehand, and finally the API will perform the necessary steps to finalize the ride and conduct a transaction. The following libraries are utilized:
-
-- class-validator: performs server-side validations.
-- uuid: generates unique references for the transactions..
-- rxjs: facilitates communication with the external API.
-- typeorm: provides data persistence and migrations.
-
-## CI/CD
-This application has a CI/CD process through GitHub Actions. For every push made to the master branch, the code is compiled, test are executed, a Docker image is created, published to Docker Hub, and a container that is in EC2 is restarted. You can access the deployed API documentation at the following URL: http://ec2-3-128-30-79.us-east-2.compute.amazonaws.com:3000/api 
+Trips-api is an exceptional project developed with NestJS, TypeScript, PostgreSQL, Docker, GitHubActions and AWS. As a Rider you can request a Ride everywhere, and the API will contact the nearest driver to assist you in your trip.In order to use the service you must register a payment method beforehand (Credit Card for example), and finally the API will perform the necessary steps to finalize the ride and make a transaction. You can access the deployed API documentation at the following URL: http://ec2-3-128-30-79.us-east-2.compute.amazonaws.com:3000/api 
 
 ## How to Run?
 
@@ -42,57 +34,43 @@ npm run start:dev
 ```
 http://localhost:3000/api
 ```
-## Architecture
 
-Trips-api uses a 3 layer arquitecture with Controllers, Services a Repositories:
+
+## Architecture
+Trips-api has a 3-layer architecture: Controllers, Services, and Repositories. Each layer has a unique responsibility, the architecture follows the best practices and maintain code quality. The Controllers handle incoming requests and interact with the Services, which contain the business logic of the application. The Services, in turn, interact with the Repositories, which manage the persistence of our data. By following this architecture, it was able to write maintainable and modular code that adheres to good programming practices.
 
 ![3 layer Architecture](./docs/ARCHITECTURE.png)
 
-
-
 ## Database
 
-The database Entity Relation Diagram:
+The database used to store and manage the data is PostgreSQL, in order to create and execute the migrations TypeORM was implemented. The Entity Relation Diagram illustrates the various entities in our system and how they are related to each other:
 
 ![Entitiy Relation Diagram](./docs/ERD.png)
 
-## Postman collections
+## TESTING
+
+Unit testing was made in all the services of the project using Jest, they are in service folder.
+
+## Libraries
+
+The following libraries are utilized in the project:
+
+- typeorm: provides data persistence and migrations.
+- class-validator: performs server-side validations.
+- uuid: generates unique references for the transactions.
+- HttpModule (axios): facilitates communication with the external API.
 
 
+## Docker
+
+## CI/CD
+This application has a CI/CD process through GitHub Actions. For every push made to the master branch, the code is compiled, test are executed, a Docker image is created, published to Docker Hub, and a container that is in EC2 is restarted. You can access the deployed API documentation at the following URL:
+
+Cómo esta construida la EC2
+
+tenemos instalado Docker, en un contenedor la DB y en otro contenedor la trip-api
+
+# AWS - EC2
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### Instructions to run the project with Docker:
-1. Create a network
-```
-docker network create trip-net
-```
-
-2. Start the database by running the following Docker command:
-```
-docker run --net trip-net --name trips-database -p 5432:5432 -e POSTGRES_DB=trips_db -e POSTGRES_USER=trips_user -e POSTGRES_PASSWORD=123456 -d postgres:11
-````
-2. Run the container for the application using the following command:
-```
-docker run -d --pull --name trips-api --net trip-net -p 3000:3000 -e DATABASE_HOST=trips-database -e DATABASE_PORT=5432 -e DATABASE_USERNAME=trips_user -e DATABASE_PASSWORD=123456 -e DATABASE_NAME=trips_db sebastianabril6/trips-api:latest
-```
-3. It's important to note that both containers are being created in the same network so that they can communicate with each other.
-
-4. You can access the API documentation in your browser at the following URL:
-
-```
-http://localhost:3000/api
-```
+*EXPLICACION DE COMO ESTA DESPLEGADO EN AWS CON DOCKER.

@@ -49,7 +49,10 @@ The database used to store and manage the data is PostgreSQL, in order to create
 
 ## Testing
 
-Unit testing was made using Jest in DriverService and RiderService of the project , they are in service folder.
+Unit testing was made using Jest in DriverService and RiderService of the project , they are in service folder. To run all the test execute:
+ ```
+ npm run test
+ ```
 
 ## Libraries
 

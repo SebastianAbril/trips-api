@@ -10,6 +10,7 @@ import { DriverService } from '../service/driver.service';
 import { databaseProperties } from './database';
 import { PaymentService } from '../service/payment.service';
 import { HttpModule } from '@nestjs/axios';
+import { DriverTypeORMRepository } from '../repository/driver.typeorm.repository';
 
 @Module({
   imports: [
@@ -21,6 +22,14 @@ import { HttpModule } from '@nestjs/axios';
     HttpModule,
   ],
   controllers: [RiderController, DriverController],
-  providers: [RiderService, DriverService, PaymentService],
+  providers: [
+    RiderService,
+    DriverService,
+    PaymentService,
+    {
+      provide: 'DriverRepository',
+      useValue: DriverTypeORMRepository,
+    },
+  ],
 })
 export class AppModule {}

@@ -49,10 +49,33 @@ The database used to store and manage the data is PostgreSQL, in order to create
 
 ## Testing
 
+### Unit Testing
+
 Unit testing was made using Jest in DriverService and RiderService of the project , they are in service folder. To run all the test execute:
  ```
  npm run test
  ```
+
+ ### Integration Testing
+1. Start the database by running the following Docker command:
+```
+docker run --name trips-database-integration -p 5432:5432 -e POSTGRES_DB=trips_db -e POSTGRES_USER=trips_user -e POSTGRES_PASSWORD=123456 -d postgres:11
+```
+2. Install the project dependencies by running:
+```
+npm install
+```
+5. To execute the migrations, run the following command:
+```
+npm run migration:run
+```
+6. To run integration test, use the following command:
+```
+npm run test:integration
+```
+
+
+
 
 ## Libraries
 

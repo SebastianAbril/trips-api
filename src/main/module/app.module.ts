@@ -11,6 +11,7 @@ import { databaseProperties } from './database';
 import { PaymentService } from '../service/payment.service';
 import { HttpModule } from '@nestjs/axios';
 import { DriverTypeORMRepository } from '../repository/driver.typeorm.repository';
+import { RiderTypeORMRepostiory } from '../repository/rider.typeorm.repository';
 
 @Module({
   imports: [
@@ -18,7 +19,7 @@ import { DriverTypeORMRepository } from '../repository/driver.typeorm.repository
       ...(databaseProperties as any),
       entities: [Driver, Rider, Ride],
     }),
-    TypeOrmModule.forFeature([Driver, Rider, Ride]),
+    TypeOrmModule.forFeature([Ride]),
     HttpModule,
   ],
   controllers: [RiderController, DriverController],
@@ -28,7 +29,11 @@ import { DriverTypeORMRepository } from '../repository/driver.typeorm.repository
     PaymentService,
     {
       provide: 'DriverRepository',
-      useValue: DriverTypeORMRepository,
+      useClass: DriverTypeORMRepository,
+    },
+    {
+      provide: 'RiderRepository',
+      useClass: RiderTypeORMRepostiory,
     },
   ],
 })

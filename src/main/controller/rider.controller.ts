@@ -64,4 +64,9 @@ export class RiderController {
       request.tokenizedCard,
     );
   }
+
+  @Post()
+  create(@Body() rider: Rider): Promise<Rider> {
+    return this.riderService.save(rider.name, rider.lastname, rider.email);
+  }
 }

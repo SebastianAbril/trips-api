@@ -5,4 +5,6 @@ export interface DriverRepository {
     initialLatitude: number,
     initialLongitude: number,
   ): Promise<Driver>;
+
+  save(driver: Driver): Promise<Driver>;
 }

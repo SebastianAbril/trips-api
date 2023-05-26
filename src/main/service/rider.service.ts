@@ -5,17 +5,18 @@ import { Rider } from '../entity/rider.entity';
 import { Repository } from 'typeorm';
 import { PaymentService } from './payment.service';
 import { DriverRepository } from '../repository/driver.repository';
+import { RiderRepository } from '../repository/rider.repository';
 
 @Injectable()
 export class RiderService {
   private rideRepository: Repository<Ride>;
-  private riderRepository: Repository<Rider>;
+  private riderRepository: RiderRepository;
   private driverRepository: DriverRepository;
   private paymentService: PaymentService;
 
   constructor(
     @InjectRepository(Ride) rideRepository: Repository<Ride>,
-    @InjectRepository(Rider) riderRepository: Repository<Rider>,
+    @Inject('RiderRepository') riderRepository: RiderRepository,
     @Inject('DriverRepository') driverRepository: DriverRepository,
     paymentService: PaymentService,
   ) {
@@ -30,7 +31,7 @@ export class RiderService {
     initialLatitude: number,
     initialLongitude: number,
   ): Promise<Ride> {
-    const rider = await this.riderRepository.findOneBy({ id: riderId });
+    const rider = await this.riderRepository.findOneBy(riderId);
     if (rider === null) {
       throw new NotFoundException('The rider does not exist');
     }
@@ -54,7 +55,7 @@ export class RiderService {
     riderId: number,
     tokenizedCard: string,
   ): Promise<Rider> {
-    const rider = await this.riderRepository.findOneBy({ id: riderId });
+    const rider = await this.riderRepository.findOneBy(riderId);
     if (rider === null) {
       throw new NotFoundException('The rider does not exist');
     }
@@ -69,5 +70,15 @@ export class RiderService {
     rider.paymentSourceId = paymentSourceId;
 
     return this.riderRepository.save(rider);
+  }
+
+  async save(name: string, lastname: string, email: string): Promise<Rider> {
+    const rider = new Rider(); //plainToClass()
+    rider.name = name;
+    rider.lastname = lastname;
+    rider.email = email;
+    rider.paymentSourceId = null;
+
+    return await this.riderRepository.save(rider);
   }
 }

@@ -61,7 +61,7 @@ jobs:
       - name: run migrations
         run: npm run migration:run
         env:
-          DATABASE_HOST: postgres
+          DATABASE_HOST: localhost
           DATABASE_PORT: 5432
           DATABASE_USERNAME: trips_user
           DATABASE_PASSWORD: 123456
@@ -70,7 +70,7 @@ jobs:
       - name: integration testing
         run: npm run test:integration
         env:
-          DATABASE_HOST: postgres
+          DATABASE_HOST: localhost
           DATABASE_PORT: 5432
           DATABASE_USERNAME: trips_user
           DATABASE_PASSWORD: 123456

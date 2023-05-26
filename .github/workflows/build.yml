@@ -60,6 +60,12 @@ jobs:
 
       - name: run migrations
         run: npm run migration:run
+        env:
+          DATABASE_HOST: postgres
+          DATABASE_PORT: 5432
+          DATABASE_USERNAME: trips_user
+          DATABASE_PASSWORD: 123456
+          DATABASE_NAME: trips_db
 
       - name: integration testing
         run: npm run test:integration

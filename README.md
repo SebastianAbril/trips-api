@@ -1,6 +1,6 @@
 # trips-api
 
-trips-api is an exceptional project developed with NestJS, TypeScript, PostgreSQL, Docker, GitHubActions and AWS. As a Rider you can request a Ride everywhere, and the API will contact the nearest driver to assist you in your trip.In order to use the service you must register a payment method beforehand (Credit Card for example), and finally the API will perform the necessary steps to finalize the ride and make a transaction. You can access the deployed API documentation at the following URL: http://ec2-3-128-30-79.us-east-2.compute.amazonaws.com:3000/api 
+trips-api is an exceptional project developed with NestJS, TypeScript, PostgreSQL, Docker, GitHubActions and AWS. As a Rider you can request a Ride everywhere, and the API will contact the nearest driver to assist you in your trip.In order to use the service you must register a payment method beforehand (Credit Card for example), and finally the API will perform the necessary steps to finalize the ride and make a transaction. You can access the deployed API documentation at the following URL: http://ec2-3-145-136-183.us-east-2.compute.amazonaws.com:3000/api 
 
 ## How to Run?
 
